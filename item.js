@@ -8,7 +8,7 @@ class Item{
     this.pos = [0, 0];
     this.smallSize = 80;
     this.bigSize = 400;
-    this.zoom = false;
+    this.selected = false;
   }
 
   getIdx(){
@@ -19,24 +19,46 @@ class Item{
     this.pos = pos;
   }
 
-  setZoom(zoom){
-    this.zoom = zoom
+  setSelected(){
+    this.selected = !this.selected;
+    return this.selected;
+  }
+
+  setSelectOff(){
+    this.selected = false;
+  }
+
+  onTrigger(mode){
+    if(mode == 'grid'){
+      return (
+        this.pos[0] - (this.smallSize/2) < mouseX &&
+        mouseX < this.pos[0] + (this.smallSize/2) &&
+        this.pos[1] - (this.smallSize/2) < mouseY &&
+        mouseY < this.pos[1] + (this.smallSize/2)
+      )
+    }else if(mode == 'show'){
+      return (
+        width/2 - (this.bigSize/2) < mouseX &&
+        mouseX < width/2 + (this.bigSize/2) &&
+        height/2 - (this.bigSize/2) < mouseY &&
+        mouseY < height/2 + (this.bigSize/2)
+      )
+    }
   }
 
   gridDisplay(){
     imageMode(CENTER);
-    image(this.img, this.pos[0], this.pos[1], this.smallSize, this.smallSize);
+    if(this.onTrigger('grid') || this.selected){
+      image(this.img, this.pos[0], this.pos[1], this.smallSize*1.2, this.smallSize*1.2);
+    }else{
+      image(this.img, this.pos[0], this.pos[1], this.smallSize, this.smallSize);
+    }
   }
-
+    
   zoomDisplay(){
     // img
     imageMode(CENTER);
-    if(
-      width/2 - (this.bigSize/2) < mouseX &&
-      mouseX < width/2 + (this.bigSize/2) &&
-      height/2 - (this.bigSize/2) < mouseY &&
-      mouseY < height/2 + (this.bigSize/2)
-    ){
+    if(this.onTrigger('show')){
       image(this.img, width/2, height/2, this.bigSize*1.2, this.bigSize*1.2);
     }else{
       image(this.img, width/2, height/2, this.bigSize, this.bigSize);

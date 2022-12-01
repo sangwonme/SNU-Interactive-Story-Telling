@@ -19,6 +19,14 @@ class Inven{
     return this.items[this.items.length -1];
   }
 
+  getLength(){
+    return this.items.length;
+  }
+
+  getItem(i){
+    return this.items[i];
+  }
+
   addItem(item){
     let num = this.items.length;
     let posX = this.startpos[0] + (num%this.col)*this.size + this.size/2;
