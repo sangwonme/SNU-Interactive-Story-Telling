@@ -205,6 +205,8 @@ function mousePressed(){
       // search btn
       if(btn_search.onTrigger()){
         scene = 'search';
+        prevSearch = '';
+        inp.value('');
       }
       // craft btn
       if(btn_craft.onTrigger()){
