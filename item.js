@@ -10,6 +10,10 @@ class Item{
     this.bigSize = 400;
     this.selected = false;
     this.copied = false;
+    // wiggle
+    this.ang = 0;
+    this.clockwise = true;
+    this.wiggling = false;
   }
 
   getIdx(){
@@ -53,6 +57,29 @@ class Item{
       );
     }
   }
+  
+  setWiggle(wiggling){
+    if(!wiggling){
+      this.ang = 0;
+    }
+    this.wiggling = wiggling;
+  }
+
+  wiggle(){
+    if(this.wiggling){
+      if(this.ang > 20){
+        this.clockwise = false;
+      }
+      else if(this.ang < -20){
+        this.clockwise = true;
+      }
+      if(this.clockwise){
+        this.ang += 2;
+      }else{
+        this.ang -= 2;
+      }
+    }
+  }
 
   setCopied(){
     this.copied = false;
@@ -82,11 +109,20 @@ class Item{
 
   gridDisplay(){
     imageMode(CENTER);
+    // grid view
+    push();
+    translate(this.pos[0], this.pos[1]);
+    rotate(radians(this.ang));
     if(this.onTrigger('grid') || this.selected){
-      image(this.img, this.pos[0], this.pos[1], this.smallSize*1.2, this.smallSize*1.2);
+      this.setWiggle(true);
+      image(this.img, 0, 0, this.smallSize*1.2, this.smallSize*1.2);
     }else{
-      image(this.img, this.pos[0], this.pos[1], this.smallSize, this.smallSize);
+      this.setWiggle(false);
+      image(this.img, 0, 0, this.smallSize, this.smallSize);
     }
+    pop();
+    // wiggle
+    this.wiggle();
   }
     
   zoomDisplay(){

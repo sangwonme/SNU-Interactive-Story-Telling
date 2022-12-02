@@ -32,7 +32,7 @@ function setup() {
   createCanvas(1200, 900);
 
   // scene set
-  scene = 'craft';
+  scene = 'main';
 
   // img assets
   for(let i = 0; i <= 2; i ++){
@@ -54,7 +54,6 @@ function setup() {
 
   // craft
   selected = Array.from({length: 100}, () => false);
-
 }
 
 function drawMain(){
@@ -77,7 +76,7 @@ function searchInDB(key){
 // draw Seach scene
 function drawSearch(){
   drawMain();
-  background(0, 0, 0, 230);
+  background(0, 0, 0, 240);
 
   // text
   textAlign(CENTER);
@@ -139,7 +138,7 @@ function drawShow(){
   // background
   inp.hide();
   drawMain();
-  background(0, 0, 0, 230);
+  background(0, 0, 0, 240);
 
   // btn
   btn_x.display();
@@ -174,7 +173,7 @@ function craft(idx1, idx2){
 function drawCraft(){
   // background
   inp.hide();
-  background(0, 0, 0, 230);
+  background(0, 0, 0, 240);
   inven.display();
 
   // btn
