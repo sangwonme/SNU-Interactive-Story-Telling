@@ -10,6 +10,7 @@ let inven;
 // buttons
 let btn_search;
 let btn_craft;
+let btn_x;
 
 // search
 let inp;
@@ -30,7 +31,7 @@ function setup() {
   createCanvas(1200, 900);
 
   // scene set
-  scene = 'main';
+  scene = 'craft';
 
   // img assets
   for(let i = 0; i <= 2; i ++){
@@ -43,6 +44,7 @@ function setup() {
   // button
   btn_search = new Button([110, 100]);
   btn_craft = new Button([250, 100]);
+  btn_x = new Button([1090, 100]);
 
   // search
   inp = createInput('');
@@ -51,6 +53,10 @@ function setup() {
 
   // craft
   selected = Array.from({length: 100}, () => false);
+
+  // debug
+  inven.addItem(new Item(0, imgs[0], db.getRow(0).arr));
+  inven.addItem(new Item(1, imgs[1], db.getRow(1).arr));
 
 }
 
@@ -86,6 +92,9 @@ function drawSearch(){
   inp.position(width/2-250, 400);
   inp.size(500, 100);
   inp.show();
+
+  // btn
+  btn_x.display();
 
   // search
   if(keyIsPressed && keyCode === ENTER && prevSearch != inp.value()){
@@ -134,6 +143,9 @@ function drawShow(){
   drawMain();
   background(0, 0, 0, 230);
 
+  // btn
+  btn_x.display();
+
   // show Item
   showitem.zoomDisplay()
 }
@@ -166,6 +178,9 @@ function drawCraft(){
   inp.hide();
   background(0, 0, 0, 230);
   inven.display();
+
+  // btn
+  btn_x.display();
 
   // check selected
   if(getAllSelected().length == 2){
@@ -207,16 +222,27 @@ function mousePressed(){
       }
       break;
     case 'search':
-
+      // x btn
+      if(btn_x.onTrigger()){
+        scene = 'main';
+      }
       break;
 
     case 'show':
+      // x btn
+      if(btn_x.onTrigger()){
+        scene = 'main';
+      }
       // go to main if item pressed
       if(showitem.onTrigger('show')){
         scene = 'main';
       }
       break;
     case 'craft':
+      // x btn
+      if(btn_x.onTrigger()){
+        scene = 'main';
+      }
       // select
       for(let i=0; i < inven.getLength(); i++){
         let item = inven.getItem(i);

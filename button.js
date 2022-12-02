@@ -12,7 +12,7 @@ class Button{
   }
 
   display(){
-    fill(0);
+    fill(255);
     circle(this.pos[0], this.pos[1], this.size);
   }
 }

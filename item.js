@@ -73,5 +73,11 @@ class Item{
     // desc
     textSize(40);
     text(this.desc, width/2, 700);
+    // pw
+    if(this.pw != '0'){
+      fill(255, 0, 0);
+      textSize(30);
+      text('비밀번호 : ' + this.pw, width/2, 750);
+    }
   }
 }
