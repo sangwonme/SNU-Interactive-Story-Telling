@@ -22,6 +22,7 @@ let showitem;
 
 // craft
 let selected;
+let copiedPw;
 
 function preload(){
   db = loadTable('./assets/itemDB.csv', 'csv', 'header');
@@ -109,6 +110,7 @@ function drawSearch(){
           // go to search
           scene = 'show';
           showitem = inven.getLastItem();
+          showitem.setCopied();
         }else{
           alert = 'not found';
         }
@@ -197,6 +199,7 @@ function drawCraft(){
       inven.addItem(new Item(idx, imgs[idx], db.getRow(idx).arr));
       scene = 'show';
       showitem = inven.getLastItem();
+      showitem.setCopied();
     }
   }
 }
@@ -217,6 +220,7 @@ function mousePressed(){
         if(inven.getItem(i).onTrigger('grid')){
           scene = 'show';
           showitem = inven.getItem(i);
+          showitem.setCopied();
           break;
         }
       }
@@ -239,7 +243,7 @@ function mousePressed(){
       }
       // copy text
       if(showitem.onTrigger('pw')){
-        showitem.CopyToClipboard();
+        copiedPw = showitem.CopyToClipboard();
       }
       break;
     case 'craft':

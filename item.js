@@ -54,8 +54,13 @@ class Item{
     }
   }
 
+  setCopied(){
+    this.copied = false;
+  }
+
   CopyToClipboard() {
     this.copyStringToClipboard(this.pw);
+    return this.pw;
   }
   
   copyStringToClipboard (str) {
