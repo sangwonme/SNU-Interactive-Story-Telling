@@ -55,10 +55,6 @@ function setup() {
   // craft
   selected = Array.from({length: 100}, () => false);
 
-  // debug
-  inven.addItem(new Item(0, imgs[0], db.getRow(0).arr));
-  inven.addItem(new Item(1, imgs[1], db.getRow(1).arr));
-
 }
 
 function drawMain(){
