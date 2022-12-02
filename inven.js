@@ -27,12 +27,22 @@ class Inven{
     return this.items[i];
   }
 
+  saveItemList(){
+    let code = ''
+    for(let i = 0; i < this.items.length; i++){
+      code += str(this.items[i].getIdx());
+      code += ' ';
+    }
+    localStorage.setItem('inven_list', code);
+  }
+
   addItem(item){
     let num = this.items.length;
     let posX = this.startpos[0] + (num%this.col)*this.size + this.size/2;
     let posY = this.startpos[1] + floor(num/this.col)*this.size + this.size/2;
     item.setPos([posX, posY]);
     this.items.push(item);
+    this.saveItemList();
   }
 
   display(){

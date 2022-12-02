@@ -41,6 +41,13 @@ function setup() {
 
   // items
   inven = new Inven();
+  let code = localStorage.getItem('inven_list');
+  if(code){
+    let tmp = code.split(' ');
+    for(let i = 0; i < tmp.length-1; i++){
+      inven.addItem(new Item(tmp[i], imgs[tmp[i]], db.getRow(tmp[i]).arr));
+    }
+  }
 
   // button
   btn_search = new Button([110, 100], '찾기');
