@@ -237,6 +237,10 @@ function mousePressed(){
       if(showitem.onTrigger('show')){
         scene = 'main';
       }
+      // copy text
+      if(showitem.onTrigger('pw')){
+        showitem.CopyToClipboard();
+      }
       break;
     case 'craft':
       // x btn
