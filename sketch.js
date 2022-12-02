@@ -42,9 +42,9 @@ function setup() {
   inven = new Inven();
 
   // button
-  btn_search = new Button([110, 100]);
-  btn_craft = new Button([250, 100]);
-  btn_x = new Button([1090, 100]);
+  btn_search = new Button([110, 100], '찾기');
+  btn_craft = new Button([250, 100], '조합');
+  btn_x = new Button([1090, 100], 'X');
 
   // search
   inp = createInput('');

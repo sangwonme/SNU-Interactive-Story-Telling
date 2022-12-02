@@ -71,7 +71,7 @@ class Item{
     textSize(80);
     text(this.title, width/2, 200);
     // desc
-    textSize(40);
+    textSize(35);
     text(this.desc, width/2, 700);
     // pw
     if(this.pw != '0'){

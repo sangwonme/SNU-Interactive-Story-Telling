@@ -1,8 +1,9 @@
 class Button{
-  constructor(pos){
+  constructor(pos, text){
     this.pos = pos;
     this.size = 120;
     this.clicked = false;
+    this.text = text;
   }
 
   onTrigger(){
@@ -14,5 +15,9 @@ class Button{
   display(){
     fill(255);
     circle(this.pos[0], this.pos[1], this.size);
+    fill(0);
+    textAlign(CENTER);
+    textSize(40);
+    text(this.text, this.pos[0], this.pos[1]+10);
   }
 }
