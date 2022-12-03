@@ -206,6 +206,13 @@ function drawCraft(){
   }
 }
 
+function keyPressed(){
+  print(keyCode);
+  if(keyCode == '48'){
+    localStorage.setItem('inven_list', '');
+  }
+}
+
 function mousePressed(){
   switch(scene){
     case 'main':
