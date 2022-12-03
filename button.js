@@ -1,7 +1,7 @@
 class Button{
   constructor(pos, text){
     this.pos = pos;
-    this.size = 120;
+    this.size = 80;
     this.clicked = false;
     this.text = text;
   }
@@ -17,7 +17,7 @@ class Button{
     circle(this.pos[0], this.pos[1], this.size);
     fill(0);
     textAlign(CENTER);
-    textSize(40);
+    textSize(20);
     text(this.text, this.pos[0], this.pos[1]+10);
   }
 }

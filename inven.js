@@ -3,8 +3,8 @@ class Inven{
     this.items = [];
     this.col = 11;
     this.row = 6;
-    this.size = 100;
-    this.startpos = [50, 200];
+    this.size = 65;
+    this.startpos = [width/2-(this.size*this.col/2), height/2-(this.size*this.row/2)+20];
   }
 
   isExist(idx){

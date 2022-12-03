@@ -6,8 +6,8 @@ class Item{
     this.desc = data[2];
     this.pw = data[5];
     this.pos = [0, 0];
-    this.smallSize = 80;
-    this.bigSize = 400;
+    this.smallSize = 60;
+    this.bigSize = 250;
     this.selected = false;
     this.copied = false;
     // wiggle
@@ -50,10 +50,10 @@ class Item{
       )
     }else if(mode == 'pw'){
       return(
-        width/2 - 100 < mouseX &&
-        mouseX < width/2 + 100 &&
-        750 - 30 < mouseY &&
-        mouseY < 750 + 30
+        width/2 - 60 < mouseX &&
+        mouseX < width/2 + 60 &&
+        485 - 30 < mouseY &&
+        mouseY < 485 + 30
       );
     }
   }
@@ -138,11 +138,11 @@ class Item{
     textAlign(CENTER);
     fill(255);
     // title
-    textSize(80);
-    text(this.title, width/2, 200);
+    textSize(60);
+    text(this.title, width/2, 170);
     // desc
-    textSize(35);
-    text(this.desc, width/2, 700);
+    textSize(25);
+    text(this.desc, width/2, 450);
     // pw
     if(this.pw != '0'){
       // pw
@@ -156,15 +156,15 @@ class Item{
       else{
         fill(100, 0, 0);
       }
-      textSize(30);
-      text('비밀번호 : ' + this.pw, width/2, 750);
+      textSize(20);
+      text('비밀번호 : ' + this.pw, width/2, 485);
       // copied message
       textSize(20);
       fill(255);
       if(this.copied){
-        text('비밀번호가 클립보드에 복사되었습니다.', width/2, 790);
+        text('비밀번호가 클립보드에 복사되었습니다.', width/2, 515);
       }else{
-        text('비밀번호를 클릭하면 클립보드에 복사할 수 있습니다.', width/2, 790);
+        text('비밀번호를 클릭하면 클립보드에 복사할 수 있습니다.', width/2, 515);
       }
     }
     

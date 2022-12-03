@@ -29,7 +29,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(1200, 900);
+  createCanvas(800, 600);
 
   // scene set
   scene = 'main';
@@ -50,9 +50,9 @@ function setup() {
   }
 
   // button
-  btn_search = new Button([110, 100], '찾기');
-  btn_craft = new Button([250, 100], '조합');
-  btn_x = new Button([1090, 100], 'X');
+  btn_search = new Button([80, 60], '찾기');
+  btn_craft = new Button([170, 60], '조합');
+  btn_x = new Button([700, 60], 'X');
 
   // search
   inp = createInput('');
@@ -87,13 +87,13 @@ function drawSearch(){
 
   // text
   textAlign(CENTER);
-  textSize(80);
+  textSize(60);
   fill(255);
-  text("무엇을 찾으셨나요?", width/2, 320);
+  text("무엇을 찾으셨나요?", width/2, 170);
 
   // input
-  inp.position(width/2-250, 400);
-  inp.size(500, 100);
+  inp.position(width/2-250, 210);
+  inp.size(500, 80);
   inp.show();
 
   // btn
@@ -131,10 +131,10 @@ function drawSearch(){
     case 'none':
       break;
     case 'already exist':
-      text('이미 찾은 물건입니다.', width/2, 600);
+      text('이미 찾은 물건입니다.', width/2, 360);
       break;
     case 'not found':
-      text('존재하지 않는 물건입니다.', width/2, 600);
+      text('존재하지 않는 물건입니다.', width/2, 360);
       break;
   }
 
@@ -189,7 +189,6 @@ function drawCraft(){
   // check selected
   if(getAllSelected().length == 2){
     let idx = craft(getAllSelected()[0], getAllSelected()[1]);
-    print(idx);
     if(idx && !inven.isExist(idx)){
       // select off
       selected[getAllSelected()[0]] = false;
@@ -208,7 +207,7 @@ function drawCraft(){
 
 function keyPressed(){
   print(keyCode);
-  if(keyCode == '48'){
+  if(keyCode == '27'){
     localStorage.setItem('inven_list', '');
   }
 }
