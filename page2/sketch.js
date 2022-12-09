@@ -4,8 +4,11 @@ let db;
 let scene;
 
 // inven
-let imgs = [];
 let inven;
+
+// assets
+let icon = [];
+let imageAsset = {};
 
 // buttons
 let btn_search;
@@ -24,35 +27,38 @@ let showitem;
 let selected;
 let copiedPw;
 
+
 function preload(){
   db = loadTable('./assets/itemDB.csv', 'csv', 'header');
+  // item assets
+  let icons = []
+  for(let i = 0; i <= 2; i ++){
+    icons[i] = loadImage('./assets/items/' + i + '.png');
+  }
+  imageAsset['icon'] = icons;
+  // ui assets
+  imageAsset['back'] = loadImage('./assets/ui/background.png');
+  imageAsset['note'] = loadImage('./assets/ui/note.png');
+  let btn = [];
+  for(let i = 0; i <= 3 ; i++){
+    btn.push(loadImage('./assets/ui/btn_' + i + '.png'));
+  }
+  imageAsset['btn'] = btn;
 }
 
 function setup() {
   createCanvas(800, 600);
 
-  // scene set
+  // generate inven
+  inven = new Inven(imageAsset);
+
+  // init scene
   scene = 'main';
 
-  // img assets
-  for(let i = 0; i <= 2; i ++){
-    imgs[i] = loadImage('./assets/items/' + i + '.png');
-  }
-
-  // items
-  inven = new Inven();
-  let code = localStorage.getItem('inven_list');
-  if(code){
-    let tmp = code.split(' ');
-    for(let i = 0; i < tmp.length-1; i++){
-      inven.addItem(new Item(tmp[i], imgs[tmp[i]], db.getRow(tmp[i]).arr));
-    }
-  }
-
-  // button
-  btn_search = new Button([80, 60], '찾기');
-  btn_craft = new Button([170, 60], '조합');
-  btn_x = new Button([700, 60], 'X');
+  // btns
+  btn_search = new Button([90, 50], '검색', imageAsset['btn'][0], imageAsset['btn'][1]);
+  btn_craft = new Button([180, 50], '조합', imageAsset['btn'][0], imageAsset['btn'][1]);
+  btn_x = new Button([700, 50], '', imageAsset['btn'][2], imageAsset['btn'][3]);
 
   // search
   inp = createInput('');
@@ -61,26 +67,38 @@ function setup() {
 
   // craft
   selected = Array.from({length: 100}, () => false);
+
+  // debug
+  inven.addItem(new Item(0, imageAsset['icon'][0], db.getRow(0).arr));
+  inven.addItem(new Item(1, imageAsset['icon'][1], db.getRow(1).arr));
+
+}
+
+function drawFunButton(){
+  btn_craft.display();
+  btn_search.display();
+}
+
+function drawXButtion(){
+  btn_x.display();
 }
 
 function drawMain(){
   inp.hide();
-  btn_search.display();
-  btn_craft.display();
   inven.display();
+  drawFunButton();
 }
 
 // return item's idx from it's name
-function searchInDB(key){
+function searchInDB(item_name){
   for(let i = 0; i < db.getRowCount(); i++){
-    if(db.getRow(i).arr[1] == key){
+    if(db.getRow(i).arr[1] == item_name){
       return db.getRow(i).arr[0];
     }
   }
   return false;
 }
 
-// draw Seach scene
 function drawSearch(){
   drawMain();
   background(0, 0, 0, 240);
@@ -96,8 +114,8 @@ function drawSearch(){
   inp.size(500, 80);
   inp.show();
 
-  // btn
-  btn_x.display();
+  // x btn
+  drawXButtion();
 
   // search
   if(keyIsPressed && keyCode === ENTER && prevSearch != inp.value()){
@@ -107,7 +125,7 @@ function drawSearch(){
       let idx = searchInDB(key);
       if(!inven.isExist(idx)){
         if(db.getRow(idx).arr[3] == -99){
-          inven.addItem(new Item(idx, imgs[idx], db.getRow(idx).arr));
+          inven.addItem(new Item(idx, imageAsset['icon'][idx], db.getRow(idx).arr));
           alert = 'none';
           // go to search
           scene = 'show';
@@ -137,18 +155,17 @@ function drawSearch(){
       text('존재하지 않는 물건입니다.', width/2, 360);
       break;
   }
-
+  
 }
 
-// draw Show scene
 function drawShow(){
   // background
   inp.hide();
   drawMain();
   background(0, 0, 0, 240);
 
-  // btn
-  btn_x.display();
+  // btn x
+  drawXButtion();
 
   // show Item
   showitem.zoomDisplay()
@@ -180,8 +197,9 @@ function craft(idx1, idx2){
 function drawCraft(){
   // background
   inp.hide();
-  background(0, 0, 0, 240);
   inven.display();
+  background(0, 0, 0, 240);
+  inven.displayCraft();
 
   // btn
   btn_x.display();
@@ -197,7 +215,8 @@ function drawCraft(){
         inven.getItem(i).setSelectOff();
       }
       // add craft item
-      inven.addItem(new Item(idx, imgs[idx], db.getRow(idx).arr));
+      print(idx);
+      inven.addItem(new Item(idx, imageAsset['icon'][idx], db.getRow(idx).arr));
       scene = 'show';
       showitem = inven.getLastItem();
       showitem.setCopied();
@@ -205,10 +224,26 @@ function drawCraft(){
   }
 }
 
-function keyPressed(){
-  print(keyCode);
-  if(keyCode == '27'){
-    localStorage.setItem('inven_list', '');
+
+function draw() {
+  background(220);
+
+  switch(scene){
+    case 'main':
+      drawMain();
+      break;
+    
+    case 'search':
+      drawSearch();
+      break;
+
+    case 'show':
+      drawShow();
+      break;
+
+    case 'craft':
+      drawCraft();
+      break;
   }
 }
 
@@ -268,28 +303,6 @@ function mousePressed(){
           selected[item.getIdx()] = item.setSelected();
         }
       }
-      break;
-  }
-}
-
-function draw() {
-  background(220);
-
-  switch(scene){
-    case 'main':
-      drawMain();
-      break;
-    
-    case 'search':
-      drawSearch();
-      break;
-
-    case 'show':
-      drawShow();
-      break;
-
-    case 'craft':
-      drawCraft();
       break;
   }
 }
