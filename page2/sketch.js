@@ -51,6 +51,14 @@ function setup() {
 
   // generate inven
   inven = new Inven(imageAsset);
+  let code = localStorage.getItem('inven_list');
+  if(code){
+    let tmp = code.split(' ');
+    for(let i = 0; i < tmp.length-1; i++){
+      inven.addItem(new Item(tmp[i], imageAsset['icon'][tmp[i]], db.getRow(tmp[i]).arr));
+    }
+  }
+
 
   // init scene
   scene = 'main';
@@ -67,10 +75,6 @@ function setup() {
 
   // craft
   selected = Array.from({length: 100}, () => false);
-
-  // debug
-  inven.addItem(new Item(0, imageAsset['icon'][0], db.getRow(0).arr));
-  inven.addItem(new Item(1, imageAsset['icon'][1], db.getRow(1).arr));
 
 }
 
