@@ -2,10 +2,8 @@ class Inven{
   constructor(imgAsset){
     this.items = [];
     this.spacesNum = 0;
-    this.col = 11;
-    this.row = 6;
+    this.col = 6;
     this.size = 70;
-    this.startpos = [width/2-(this.size*this.col/2), height/2-(this.size*this.row/2)+20];
     this.imgAsset = imgAsset;
   }
 
@@ -27,6 +25,15 @@ class Inven{
 
   getItem(i){
     return this.items[i];
+  }
+
+  getItemByName(index){
+    for(let i=0; i < this.items.length; i++){
+      if(this.items[i].idx == index){
+        return this.items[i]
+      }
+    }
+    return false;
   }
 
   saveItemList(){

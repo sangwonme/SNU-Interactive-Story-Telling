@@ -204,23 +204,61 @@ function drawCraft(){
   // btn
   btn_x.display();
 
+  print(getAllSelected());
+
   // check selected
   if(getAllSelected().length == 2){
     let idx = craft(getAllSelected()[0], getAllSelected()[1]);
+    // craft succeed
     if(idx && !inven.isExist(idx)){
       // select off
-      selected[getAllSelected()[0]] = false;
-      selected[getAllSelected()[1]] = false;
+      let first = getAllSelected()[0];
+      let second = getAllSelected()[1];
+      selected[first] = false;
+      selected[second] = false;
       for(let i=0; i < inven.getLength(); i++){
         inven.getItem(i).setSelectOff();
       }
       // add craft item
-      print(idx);
       inven.addItem(new Item(idx, imageAsset['icon'][idx], db.getRow(idx).arr));
       scene = 'show';
       showitem = inven.getLastItem();
       showitem.setCopied();
+      alert = 'none';
     }
+    else if(idx){
+      // select off
+      let first = getAllSelected()[0];
+      let second = getAllSelected()[1];
+      selected[first] = false;
+      selected[second] = false;
+      for(let i=0; i < inven.getLength(); i++){
+        inven.getItem(i).setSelectOff();
+      }
+      // show
+      scene = 'show';
+      showitem = inven.getItemByName(idx);
+      showitem.setCopied();
+      alert = 'none'
+    }else{
+      // select off
+      let first = getAllSelected()[0];
+      let second = getAllSelected()[1];
+      selected[first] = false;
+      selected[second] = false;
+      for(let i=0; i < inven.getLength(); i++){
+        inven.getItem(i).setSelectOff();
+      }
+      alert = 'impossible';
+    }
+  }
+  // alert
+  if(alert == 'impossible'){
+    // alert
+    fill(255, 0, 0);
+    textSize(20);
+    textAlign(CENTER);
+    text('조합할 수 없습니다.', width/2, 70);
   }
 }
 
@@ -295,6 +333,14 @@ function mousePressed(){
       // x btn
       if(btn_x.onTrigger()){
         scene = 'main';
+        // select off
+        let first = getAllSelected()[0];
+        let second = getAllSelected()[1];
+        selected[first] = false;
+        selected[second] = false;
+        for(let i=0; i < inven.getLength(); i++){
+          inven.getItem(i).setSelectOff();
+        }
       }
       // select
       for(let i=0; i < inven.getLength(); i++){
