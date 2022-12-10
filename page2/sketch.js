@@ -33,7 +33,7 @@ function preload(){
   // item assets
   let icons = []
   for(let i = 0; i <= 2; i ++){
-    icons[i] = loadImage('./assets/items/' + i + '.png');
+    icons[i] = loadImage('./assets/items/item_' + i + '.png');
   }
   imageAsset['icon'] = icons;
   // ui assets
@@ -55,10 +55,12 @@ function setup() {
   if(code){
     let tmp = code.split(' ');
     for(let i = 0; i < tmp.length-1; i++){
-      inven.addItem(new Item(tmp[i], imageAsset['icon'][tmp[i]], db.getRow(tmp[i]).arr));
+      // inven.addItem(new Item(tmp[i], imageAsset['icon'][tmp[i]], db.getRow(tmp[i]).arr));
+      inven.addItem(new Item(tmp[i], imageAsset['icon'][0], db.getRow(tmp[i]).arr));
     }
   }
 
+  localStorage.setItem('inven_list', '');
 
   // init scene
   scene = 'main';
@@ -129,7 +131,8 @@ function drawSearch(){
       let idx = searchInDB(key);
       if(!inven.isExist(idx)){
         if(db.getRow(idx).arr[3] == -99){
-          inven.addItem(new Item(idx, imageAsset['icon'][idx], db.getRow(idx).arr));
+          // inven.addItem(new Item(idx, imageAsset['icon'][idx], db.getRow(idx).arr));
+          inven.addItem(new Item(idx, imageAsset['icon'][0], db.getRow(idx).arr));
           alert = 'none';
           // go to search
           scene = 'show';
@@ -224,7 +227,8 @@ function drawCraft(){
         inven.getItem(i).setSelectOff();
       }
       // add craft item
-      inven.addItem(new Item(idx, imageAsset['icon'][idx], db.getRow(idx).arr));
+      // inven.addItem(new Item(idx, imageAsset['icon'][idx], db.getRow(idx).arr));
+      inven.addItem(new Item(idx, imageAsset['icon'][0], db.getRow(idx).arr));
       scene = 'show';
       showitem = inven.getLastItem();
       showitem.setCopied();

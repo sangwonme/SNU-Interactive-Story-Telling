@@ -51,9 +51,10 @@ class Inven{
       let posY = 180 + this.spacesNum*this.size;
       item.setPos([posX, posY]);
       this.items.push(item);
+      this.spacesNum += 1;
       this.saveItemList();
     }else{
-      let num = this.items.length;
+      let num = this.items.length - this.spacesNum;
       let posX = 150 + (num%this.col)*this.size;
       let posY = 180 + floor(num/this.col)*this.size;
       item.setPos([posX, posY]);
