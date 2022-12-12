@@ -1,9 +1,10 @@
 class Star{
-    constructor(idx, img, pos){
+    constructor(idx, img, img_b, pos){
         this.idx = idx;
         this.img = img;
+        this.img_b = img_b;
         this.smallSize = 60;
-        this.ansList = ["상상력", "임시", "좌절", "인내심", "추억"];
+        this.ansList = ["상상력", "애정", "좌절", "인내심", "추억"];
         this.ans = this.ansList[idx-20];
         this.pos = pos;
         // wiggle
@@ -80,10 +81,18 @@ class Star{
         rotate(radians(this.ang));
         if(this.onTrigger()){
             this.setWiggle(true);
-            image(this.img, 0, 0, this.smallSize*1.2, this.smallSize*1.2);
+            if(this.correct){
+                image(this.img, 0, 0, this.smallSize*1.2, this.smallSize*1.2);
+            }else{
+                image(this.img_b, 0, 0, this.smallSize*1.2, this.smallSize*1.2);
+            }
         }else{
             this.setWiggle(false);
-            image(this.img, 0, 0, this.smallSize, this.smallSize);
+            if(this.correct){
+                image(this.img, 0, 0, this.smallSize, this.smallSize);
+            }else{
+                image(this.img_b, 0, 0, this.smallSize, this.smallSize);
+            }
         }
         pop();
         this.wiggle();

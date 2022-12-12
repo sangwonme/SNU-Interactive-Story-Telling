@@ -48,6 +48,7 @@ function preload(){
   }
   imageAsset['btn'] = btn;
   imageAsset['star'] = loadImage('./assets/items/star.png');
+  imageAsset['star_b'] = loadImage('./assets/items/star_b.png');
 
   // ending
   imageAsset['ending1'] = loadImage('./assets/ending1.png');

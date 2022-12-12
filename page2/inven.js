@@ -100,7 +100,7 @@ class Inven{
       this.saveItemList();
       // add star
       posX = 620 + 85;
-      this.stars.push(new Star(item.getIdx(), this.imgAsset['star'], [posX, posY]));
+      this.stars.push(new Star(item.getIdx(), this.imgAsset['star'], this.imgAsset['star_b'], [posX, posY]));
     }else{
       let num = this.items.length - this.spacesNum;
       let posX = 150 + (num%this.col)*this.size;
