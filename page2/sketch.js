@@ -60,8 +60,6 @@ function setup() {
     }
   }
 
-  localStorage.setItem('inven_list', '');
-
   // init scene
   scene = 'main';
 

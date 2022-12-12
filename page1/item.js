@@ -16,6 +16,10 @@ class Item{
     this.wiggling = false;
   }
 
+  isSpace(){
+    return (this.pw != '0');
+  }
+
   getIdx(){
     return this.idx;
   }

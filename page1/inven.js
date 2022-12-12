@@ -1,10 +1,10 @@
 class Inven{
-  constructor(){
+  constructor(imgAsset){
     this.items = [];
-    this.col = 11;
-    this.row = 6;
-    this.size = 65;
-    this.startpos = [width/2-(this.size*this.col/2), height/2-(this.size*this.row/2)+20];
+    this.spacesNum = 0;
+    this.col = 6;
+    this.size = 70;
+    this.imgAsset = imgAsset;
   }
 
   isExist(idx){
@@ -27,6 +27,15 @@ class Inven{
     return this.items[i];
   }
 
+  getItemByName(index){
+    for(let i=0; i < this.items.length; i++){
+      if(this.items[i].idx == index){
+        return this.items[i]
+      }
+    }
+    return false;
+  }
+
   saveItemList(){
     let code = ''
     for(let i = 0; i < this.items.length; i++){
@@ -37,19 +46,55 @@ class Inven{
   }
 
   addItem(item){
-    let num = this.items.length;
-    let posX = this.startpos[0] + (num%this.col)*this.size + this.size/2;
-    let posY = this.startpos[1] + floor(num/this.col)*this.size + this.size/2;
-    item.setPos([posX, posY]);
-    this.items.push(item);
-    this.saveItemList();
+    if(item.isSpace()){
+      let posX = 620;
+      let posY = 180 + this.spacesNum*this.size;
+      item.setPos([posX, posY]);
+      this.items.push(item);
+      this.spacesNum += 1;
+      this.saveItemList();
+    }else{
+      let num = this.items.length - this.spacesNum;
+      let posX = 150 + (num%this.col)*this.size;
+      let posY = 180 + floor(num/this.col)*this.size;
+      item.setPos([posX, posY]);
+      this.items.push(item);
+      this.saveItemList();
+    }
   }
 
   display(){
     // show box
-    fill(255);
-    rect(this.startpos[0], this.startpos[1], this.col*this.size, this.row*this.size);
+    imageMode(CORNER);
+    image(this.imgAsset['back'], 0, 0);
+    image(this.imgAsset['note'], 0, 10);
+
+    // for(let i = 0; i < 6; i++){
+    //   for(let j = 0; j < 6; j++){
+    //     rectMode(CENTER);
+    //     fill(220);
+    //     rect(140+i*this.size, 170+j*this.size, this.size, this.size);
+    //   }
+    // }
+    // show items
+    for(let i = 0 ; i < this.items.length; i++){
+      this.items[i].gridDisplay();
+    }
+
     
+  }
+  displayCraft(){
+    // show box
+    imageMode(CORNER);
+    image(this.imgAsset['note'], 0, 10);
+
+    // for(let i = 0; i < 6; i++){
+    //   for(let j = 0; j < 6; j++){
+    //     rectMode(CENTER);
+    //     fill(220);
+    //     rect(140+i*this.size, 170+j*this.size, this.size, this.size);
+    //   }
+    // }
     // show items
     for(let i = 0 ; i < this.items.length; i++){
       this.items[i].gridDisplay();
