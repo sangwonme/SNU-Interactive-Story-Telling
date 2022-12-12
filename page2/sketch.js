@@ -165,7 +165,7 @@ function drawSearch(){
       text('이미 찾은 물건입니다.', width/2, 360);
       break;
     case 'not found':
-      text('존재하지 않는 물건입니다.', width/2, 360);
+      text('존재하지 않는 물건입니다. 물건 이름을 "정확히" 알아오세요.', width/2, 360);
       break;
   }
   
