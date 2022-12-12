@@ -9,13 +9,39 @@ class Inven{
   }
 
   updateCorrectStars(){
-    cnt = 0;
-    for(let i = 0; i < this.stars; i++){
-      if(this.stars[i].isCorrect){
-        cnt += 1;
+    let code = localStorage.getItem('star_num') + ' ';
+    let tmp = code.split(' ');
+    for(let i = 0; i < this.stars.length; i++){
+      if(this.stars[i].isCorrect()){
+        let exist = false;
+        for(let j = 0; j < tmp.length-1; j++){
+          if(tmp[j] == str(this.stars[i].getIdx())){
+            exist = true;
+          }
+        }
+        if(!exist){
+          code += str(this.stars[i].getIdx());
+          code += ' ';
+        }
       }
     }
-    localStorage.setItem('star_num', str(cnt));
+    localStorage.setItem('star_num', code);
+    print(code);
+  }
+
+  setCorrectStars(){
+    let code = localStorage.getItem('star_num');
+    if(code){
+      let tmp = code.split(' ');
+      for(let i = 0; i < tmp.length-1; i++){
+        for(let j = 0; j < this.stars.length; j++){
+          if(str(this.stars[j].getIdx()) == tmp[i]){
+            this.stars[j].setCorrect();
+          }
+        }  
+      }
+    }
+
   }
 
   isExist(idx){
@@ -79,6 +105,8 @@ class Inven{
   }
 
   display(){
+    this.updateCorrectStars();
+    this.setCorrectStars();
     // show box
     // imageMode(CORNER);
     // image(this.imgAsset['back'], 0, 0);
@@ -97,8 +125,16 @@ class Inven{
     }
 
     // show stars
+    let ansStar = 0;
     for(let i = 0; i < this.stars.length; i++){
-      this.stars[i].display();
+      if(this.stars[i].ansMode){
+        ansStar = i;
+      }else{
+        this.stars[i].display();
+      }
+    }
+    if(this.stars.length > 0){
+      this.stars[ansStar].display();
     }
     
   }

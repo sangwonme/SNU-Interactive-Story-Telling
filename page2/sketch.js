@@ -27,6 +27,9 @@ let showitem;
 let selected;
 let copiedPw;
 
+// end
+let endstage = 0;
+
 
 function preload(){
   db = loadTable('./assets/itemDB.csv', 'csv', 'header');
@@ -45,6 +48,10 @@ function preload(){
   }
   imageAsset['btn'] = btn;
   imageAsset['star'] = loadImage('./assets/items/star.png');
+
+  // ending
+  imageAsset['ending1'] = loadImage('./assets/ending1.png');
+  imageAsset['ending2'] = loadImage('./assets/ending2.png');
 }
 
 function setup() {
@@ -188,7 +195,6 @@ function getAllSelected() {
 // return craft output's idx given idx1, dix2
 function craft(idx1, idx2){
   for(let i = 0; i < db.getRowCount(); i++){
-    print(db.getRow(i).arr[3], db.getRow(i).arr[4]);
     if(
       (int(db.getRow(i).arr[3]) == idx1 && int(db.getRow(i).arr[4]) == idx2) ||
       (int(db.getRow(i).arr[3]) == idx2 && int(db.getRow(i).arr[4]) == idx1)
@@ -276,6 +282,21 @@ function draw() {
   image(imageAsset['back'], 0, 0);
   image(imageAsset['note'], 0, 10);
 
+  // check stars
+  let code = localStorage.getItem('star_num') + ' ';
+  let tmp = code.split(' ');
+  let cnt = 0;
+  for(i = 20; i <= 24; i++){
+    for(j = 0; j < tmp.length; j++){
+      if(str(i) == tmp[j]){
+        cnt += 1;
+      }
+    }
+  }
+  if(cnt == 5){
+    scene = 'end';
+  }
+
   switch(scene){
     case 'main':
       drawMain();
@@ -292,6 +313,17 @@ function draw() {
     case 'craft':
       drawCraft();
       break;
+
+    case 'end':
+      background(0);
+      if(endstage == 0){
+        imageMode(CORNER);
+        image(imageAsset['ending1'], 0, 0);
+      }else{
+        imageMode(CORNER);
+        image(imageAsset['ending2'], 0, 0);
+      }
+
   }
 }
 
@@ -359,6 +391,9 @@ function mousePressed(){
           selected[item.getIdx()] = item.setSelected();
         }
       }
+      break;
+    case 'end':
+      endstage = 1;
       break;
   }
 }

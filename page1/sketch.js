@@ -183,7 +183,6 @@ function getAllSelected() {
 // return craft output's idx given idx1, dix2
 function craft(idx1, idx2){
   for(let i = 0; i < db.getRowCount(); i++){
-    print(db.getRow(i).arr[3], db.getRow(i).arr[4]);
     if(
       (int(db.getRow(i).arr[3]) == idx1 && int(db.getRow(i).arr[4]) == idx2) ||
       (int(db.getRow(i).arr[3]) == idx2 && int(db.getRow(i).arr[4]) == idx1)
@@ -204,8 +203,6 @@ function drawCraft(){
 
   // btn
   btn_x.display();
-
-  print(getAllSelected());
 
   // check selected
   if(getAllSelected().length == 2){

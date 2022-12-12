@@ -1,10 +1,10 @@
 class Star{
     constructor(idx, img, pos){
+        this.idx = idx;
         this.img = img;
         this.smallSize = 60;
-        this.ansList = ["상상력", "", "좌절", "인내심", "추억"];
+        this.ansList = ["상상력", "임시", "좌절", "인내심", "추억"];
         this.ans = this.ansList[idx-20];
-        print(idx, this.ans);
         this.pos = pos;
         // wiggle
         this.ang = 0
@@ -25,6 +25,13 @@ class Star{
         this.btn_x = new Button([700, 50], '', imageAsset['btn'][2], imageAsset['btn'][3]);
     }
 
+    getIdx(){
+        return this.idx;
+    }
+
+    setCorrect(){
+        this.correct = true;
+    }
 
     isCorrect(){
         return this.correct;
@@ -115,10 +122,6 @@ class Star{
                 text(this.ans + "이 환하게 반짝인다.", width/2, height-120);
             }
         }
-
-        // print(this.ans);
-        print(keyIsPressed);
-        print(keyCode)
         // search
         if(keyIsPressed && keyCode === ENTER && !this.correct){
             let key = this.inp.value();
