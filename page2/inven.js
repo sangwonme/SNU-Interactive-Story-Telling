@@ -8,6 +8,14 @@ class Inven{
     this.stars = [];
   }
 
+  onAnsMode(){
+    let tmp = false;
+    for(let i = 0; i < this.stars.length; i++){
+      tmp = tmp || this.stars[i].onAnsMode();
+    }
+    return tmp;
+  }
+
   updateCorrectStars(){
     let code = localStorage.getItem('star_num') + ' ';
     let tmp = code.split(' ');
@@ -26,7 +34,6 @@ class Inven{
       }
     }
     localStorage.setItem('star_num', code);
-    print(code);
   }
 
   setCorrectStars(){

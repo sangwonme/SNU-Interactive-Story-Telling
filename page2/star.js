@@ -25,6 +25,10 @@ class Star{
         this.btn_x = new Button([700, 50], '', imageAsset['btn'][2], imageAsset['btn'][3]);
     }
 
+    onAnsMode(){
+        return this.ansMode;
+    }
+
     getIdx(){
         return this.idx;
     }

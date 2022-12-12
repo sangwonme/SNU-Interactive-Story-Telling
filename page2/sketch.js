@@ -216,7 +216,6 @@ function drawCraft(){
   // btn
   btn_x.display();
 
-  print(getAllSelected());
 
   // check selected
   if(getAllSelected().length == 2){
@@ -325,75 +324,78 @@ function draw() {
       }
 
   }
+  print(inven.onAnsMode());
 }
 
 function mousePressed(){
-  switch(scene){
-    case 'main':
-      // search btn
-      if(btn_search.onTrigger()){
-        scene = 'search';
-        prevSearch = '';
-        inp.value('');
-      }
-      // craft btn
-      if(btn_craft.onTrigger()){
-        scene = 'craft';
-      }
-      // show item
-      for(let i = 0; i < inven.getLength(); i++){
-        if(inven.getItem(i).onTrigger('grid')){
-          scene = 'show';
-          showitem = inven.getItem(i);
-          showitem.setCopied();
-          break;
+  if(!inven.onAnsMode()){
+    switch(scene){
+      case 'main':
+        // search btn
+        if(btn_search.onTrigger()){
+          scene = 'search';
+          prevSearch = '';
+          inp.value('');
         }
-      }
-      break;
-    case 'search':
-      // x btn
-      if(btn_x.onTrigger()){
-        scene = 'main';
-      }
-      break;
-
-    case 'show':
-      // x btn
-      if(btn_x.onTrigger()){
-        scene = 'main';
-      }
-      // go to main if item pressed
-      if(showitem.onTrigger('show')){
-        scene = 'main';
-      }
-      // copy text
-      if(showitem.onTrigger('pw')){
-        copiedPw = showitem.CopyToClipboard();
-      }
-      break;
-    case 'craft':
-      // x btn
-      if(btn_x.onTrigger()){
-        scene = 'main';
-        // select off
-        let first = getAllSelected()[0];
-        let second = getAllSelected()[1];
-        selected[first] = false;
-        selected[second] = false;
+        // craft btn
+        if(btn_craft.onTrigger()){
+          scene = 'craft';
+        }
+        // show item
+        for(let i = 0; i < inven.getLength(); i++){
+          if(inven.getItem(i).onTrigger('grid')){
+            scene = 'show';
+            showitem = inven.getItem(i);
+            showitem.setCopied();
+            break;
+          }
+        }
+        break;
+      case 'search':
+        // x btn
+        if(btn_x.onTrigger()){
+          scene = 'main';
+        }
+        break;
+  
+      case 'show':
+        // x btn
+        if(btn_x.onTrigger()){
+          scene = 'main';
+        }
+        // go to main if item pressed
+        if(showitem.onTrigger('show')){
+          scene = 'main';
+        }
+        // copy text
+        if(showitem.onTrigger('pw')){
+          copiedPw = showitem.CopyToClipboard();
+        }
+        break;
+      case 'craft':
+        // x btn
+        if(btn_x.onTrigger()){
+          scene = 'main';
+          // select off
+          let first = getAllSelected()[0];
+          let second = getAllSelected()[1];
+          selected[first] = false;
+          selected[second] = false;
+          for(let i=0; i < inven.getLength(); i++){
+            inven.getItem(i).setSelectOff();
+          }
+        }
+        // select
         for(let i=0; i < inven.getLength(); i++){
-          inven.getItem(i).setSelectOff();
+          let item = inven.getItem(i);
+          if(item.onTrigger('grid')){
+            selected[item.getIdx()] = item.setSelected();
+          }
         }
-      }
-      // select
-      for(let i=0; i < inven.getLength(); i++){
-        let item = inven.getItem(i);
-        if(item.onTrigger('grid')){
-          selected[item.getIdx()] = item.setSelected();
-        }
-      }
-      break;
-    case 'end':
-      endstage = 1;
-      break;
+        break;
+    }
+  }
+  if(scene == 'end'){
+    endstage = 1;
   }
 }
