@@ -7,7 +7,7 @@ class Item{
     this.pw = data[5];
     this.pos = [0, 0];
     this.smallSize = 60;
-    this.bigSize = 250;
+    this.bigSize = 200;
     this.selected = false;
     this.copied = false;
     // wiggle
