@@ -44,6 +44,7 @@ function preload(){
     btn.push(loadImage('./assets/ui/btn_' + i + '.png'));
   }
   imageAsset['btn'] = btn;
+  imageAsset['star'] = loadImage('./assets/items/star.png');
 }
 
 function setup() {
@@ -89,8 +90,8 @@ function drawXButtion(){
 
 function drawMain(){
   inp.hide();
-  inven.display();
   drawFunButton();
+  inven.display();
 }
 
 // return item's idx from it's name
@@ -271,6 +272,9 @@ function drawCraft(){
 
 function draw() {
   background(220);
+  imageMode(CORNER);
+  image(imageAsset['back'], 0, 0);
+  image(imageAsset['note'], 0, 10);
 
   switch(scene){
     case 'main':

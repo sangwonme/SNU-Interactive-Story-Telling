@@ -7,6 +7,7 @@ class Inven{
     this.imgAsset = imgAsset;
   }
 
+
   isExist(idx){
     let exist = false;
     for(let i=0; i<this.items.length; i++){

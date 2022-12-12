@@ -54,6 +54,7 @@ function setup() {
 
   // reset item
   localStorage.setItem('inven_list', '');
+  localStorage.setItem('star_num', str(0));
 
   // init scene
   scene = 'main';
