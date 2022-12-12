@@ -35,8 +35,8 @@ function preload(){
   db = loadTable('./assets/itemDB.csv', 'csv', 'header');
   // item assets
   let icons = []
-  for(let i = 0; i <= 2; i ++){
-    icons[i] = loadImage('./assets/items/item_' + i + '.png');
+  for(let i = 0; i <= 39; i ++){
+    icons[i] = loadImage('./assets/items/img_' + i + '.png');
   }
   imageAsset['icon'] = icons;
   // ui assets
